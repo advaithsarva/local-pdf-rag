@@ -19,7 +19,8 @@ No GPU, no API key, no vector database, three runtime dependencies.
 > `chunk["text"] == page_text(pdf, chunk["page"])[chunk["start"]:chunk["end"]]`
 
 Stated at the top of `ragpdf/chunk.py`, enforced at build time (the build aborts
-if it does not hold), and checkable at any time with `ragpdf verify`.
+if it does not hold), and checkable at any time with
+`python -m ragpdf.cli verify`, which exits non-zero if a single chunk drifts.
 
 It exists because the original violated it, silently, on 21% of its chunks. See
 [RESULTS.md §1](RESULTS.md).
@@ -48,6 +49,10 @@ python -m ragpdf.cli eval          # retrieval + abstention   (~2 min)
 python eval/run_generation.py      # generation vs baseline   (~30 min)
 python tests/test_ragpdf.py        # 13 tests                 (<1 s)
 python tests/verify_tests.py       # the same tests vs the original code
+python -m ragpdf.cli verify        # re-check the invariant, exit 1 on drift
+
+# the "before" numbers, if you still have the original CSV
+python eval/measure_original.py
 ```
 
 ### For an agent, not a person

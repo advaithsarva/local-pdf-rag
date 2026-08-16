@@ -78,7 +78,7 @@ For all 1,680 shipped chunks: is the chunk text present on the page it cites?
 | text altered beyond whitespace, or wrong page | 0 | 0.000 |
 
 ```bash
-python -c "..."   # eval/../ scratch script; reproduced by tests/verify_tests.py
+python eval/measure_original.py     # needs the original CSV + the PDF (both gitignored)
 ```
 
 **The page citations were 100% correct.** The quoted text was not. For a system
@@ -132,12 +132,17 @@ Reported because a diagnosis that only finds problems is not a diagnosis.
 lossy and is the obvious suspect. Measured against a fresh encode of the same
 chunks:
 
-| | |
-|---|---|
-| max absolute error | **1.30e-7** |
-| minimum cosine similarity | **0.99999996** |
-| vectors truncated by numpy's `...` repr | **0 / 1,680** |
-| NaN, zero-norm, or wrong-dimension rows | **0** |
+| | | |
+|---|---|---|
+| max absolute error | **1.192e-07** | 12 chunks, `default_rng(42)` |
+| minimum cosine similarity | **0.999999969** | same sample |
+| vectors truncated by numpy's `...` repr | **0 / 1,680** | all rows |
+| NaN, zero-norm, or wrong-dimension rows | **0** | all rows |
+| duplicate chunk texts | **0** | all rows |
+
+```bash
+python eval/measure_original.py     # section 2
+```
 
 768 elements is under numpy's 1,000-element summarisation threshold, so nothing
 was elided. The round trip is *correct*. It is merely expensive — 21.3 MB on

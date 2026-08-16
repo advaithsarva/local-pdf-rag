@@ -138,8 +138,12 @@ def generate(generator, query: str, context: str, max_new_tokens: int = 256,
 
 
 def answer(query: str, chunks: list[dict], indices: list[int], scores: list[float],
-           generator=None, min_score: float = MIN_SCORE) -> dict:
-    """The whole decision, in one place: abstain, generate, or fall back."""
+           generator=None, min_score: float = MIN_SCORE, temperature: float = 0.7) -> dict:
+    """The whole decision, in one place: abstain, generate, or fall back.
+
+    `temperature=0.0` selects greedy decoding. eval/run_generation.py uses it so
+    the published grounding figure is deterministic rather than one sample.
+    """
     if not indices or scores[0] < min_score:
         return abstain(scores[0] if scores else 0.0)
 
@@ -148,7 +152,7 @@ def answer(query: str, chunks: list[dict], indices: list[int], scores: list[floa
         return base
 
     context = format_context(chunks, indices)
-    text = generate(generator, query, context)
+    text = generate(generator, query, context, temperature=temperature)
     return {
         "answer": text,
         "pages": base["pages"],

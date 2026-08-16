@@ -8,6 +8,7 @@
 
 import argparse
 import json
+import os
 import sys
 import time
 
@@ -63,6 +64,10 @@ def cmd_ask(a):
 
 
 def cmd_eval(a):
+    # eval/ is a sibling of the package, not part of it -- reach it from
+    # __file__ so this works regardless of the caller's working directory.
+    root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    sys.path.insert(0, root)
     from eval.run_eval import main as run
     run(a.index, a.pdf)
 

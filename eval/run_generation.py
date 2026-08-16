@@ -13,7 +13,11 @@ Measured on the 34 Set B questions, same index, same retrieved context:
              generator is that a person reads one paragraph instead.
   latency    seconds per answer on CPU, and the cost of the trade.
 
-Run separately from run_eval.py because it downloads ~1 GB and takes minutes.
+Decoding is greedy (temperature 0.0), so the figure below is deterministic and
+not one sample from a temperature-0.7 distribution. The CLI still defaults to
+0.7 for interactive use.
+
+Run separately from run_eval.py because it downloads ~1 GB and takes ~30 min.
 """
 
 import json
@@ -59,7 +63,10 @@ def main(index_dir="index", model_id=ans.MODEL_ID, limit=None):
         base_len.append(len(base["answer"]))
 
         t = time.perf_counter()
-        out = ans.answer(r["query"], chunks, idx, scores, generator=generator)
+        # Greedy decoding: a published number should not be one sample from a
+        # temperature-0.7 distribution. The CLI still defaults to 0.7.
+        out = ans.answer(r["query"], chunks, idx, scores, generator=generator,
+                         temperature=0.0)
         gen_secs.append(time.perf_counter() - t)
         gen_ground.append(out["grounding"])
         gen_len.append(len(out["answer"]))
