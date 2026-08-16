@@ -47,7 +47,7 @@ python -m ragpdf.cli ask "who won the 2010 World Cup"       # -> abstains
 # 4. reproduce every number in RESULTS.md
 python -m ragpdf.cli eval          # retrieval + abstention   (~2 min)
 python eval/run_generation.py      # generation vs baseline   (~30 min)
-python tests/test_ragpdf.py        # 13 tests                 (<1 s)
+python tests/test_ragpdf.py        # 14 tests                 (<1 s)
 python tests/verify_tests.py       # the same tests vs the original code
 python -m ragpdf.cli verify        # re-check the invariant, exit 1 on drift
 
@@ -87,11 +87,11 @@ Full detail and commands in [RESULTS.md](RESULTS.md).
 |---|---|---|
 | **Set A** — 104 section titles from the PDF's own table of contents, unauthored | 0.971 | **0.990** |
 | **Set B** — 34 questions in lay wording that avoids the section title | **1.000** | 0.588 |
-| median latency | 47 ms | 2.1 ms |
+| median latency (Set A) | 51 ms | 2.9 ms |
 
 **The keyword baseline wins Set A**, and that is the honest headline: when the
 query already contains the document's own words, a 30-line BM25 beats a
-transformer at 20× the speed. Dense retrieval earns its cost only on Set B —
+transformer at ~18× the speed. Dense retrieval earns its cost only on Set B —
 questions phrased the way a reader would actually phrase them — where it gains
 **+0.412 recall@5**.
 
@@ -161,7 +161,7 @@ eval/out_of_corpus.json  Set C, 12 questions the book cannot answer
 eval/run_eval.py     every retrieval and abstention number
 eval/run_generation.py   the Phase 3.5 comparison
 
-tests/test_ragpdf.py     13 tests, no network, no PDF, <1 s
+tests/test_ragpdf.py     14 tests, no network, no PDF, <1 s
 tests/original_impl.py   the original chunker, transcribed from the notebook
 tests/verify_tests.py    runs the tests against it -- 3/3 must fail
 ```

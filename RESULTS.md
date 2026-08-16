@@ -106,7 +106,7 @@ is checked at build time and the build aborts if it fails:
 ```
 $ python -m ragpdf.cli build
 [build] 1715 chunks | verbatim 1715/1715 = 1.0000
-[build] wrote index/ (1715x768 float32) in 446.8s
+[build] wrote index/ (1715x768 float32) in 456.3s
 ```
 
 | | original | rebuild |
@@ -120,6 +120,40 @@ artifacts faithfully — `"The cardiovascul ar system"` appears on page 87 exact
 like that, because that is what the PDF contains. A citation system that
 silently tidies its quotes is a citation system you cannot trust; the tidying
 belongs in the display layer, not in the stored chunk.
+
+### A bug in the rewrite, worth recording
+
+The first version of `sentence_spans` ended each span at the *start* of the
+boundary match:
+
+```python
+_BOUNDARY = re.compile(r'(?<=[.!?])["\'’”)\]]*\s')
+end = m.start()          # wrong: the closing ')' or '"' lands in no span at all
+```
+
+Closing brackets and quotes therefore belonged to neither the sentence before
+them nor the one after. Interior boundaries were unaffected — a chunk is sliced
+across them — but the **final** boundary of a chunk truncated the last character:
+
+```
+...salt. (Salt is 60 percent chloride.        <- the ')' was gone
+```
+
+**9 of 1,715 chunks (0.5%).** It never violated the invariant — the text was
+still a verbatim slice, just a slice one character short of the sentence — which
+is exactly why the build check did not catch it and a `1.0000` verbatim rate did
+not mean the chunker was right. Found by scanning for chunks whose `end` offset
+landed immediately before a closing character.
+
+Fixed by making the whitespace a capture group and ending the span at
+`m.start(1)`. `test_closing_punctuation_stays_with_its_sentence` covers it. The
+rebuilt index has the same 1,715 chunks and the same 1.0000 verbatim rate, and
+**every recall figure in §3 was identical before and after** — the fix is about
+quote fidelity, not retrieval.
+
+The lesson is the useful part: *an invariant tells you the class of bug it was
+designed to exclude is absent, and nothing else.* A green check is not a proof
+of correctness.
 
 ---
 
@@ -184,10 +218,10 @@ the target page.
 
 | | recall@5 | median latency |
 |---|---|---|
-| BM25 (keyword baseline) | **0.990** (103/104) | **2.13 ms** |
-| dense, all-mpnet-base-v2 | 0.971 (101/104) | 38.1 ms |
+| BM25 (keyword baseline) | **0.990** (103/104) | **2.9 ms** |
+| dense, all-mpnet-base-v2 | 0.971 (101/104) | 51.3 ms |
 
-**The baseline wins, at 18× the speed.** Published because it is true. If your
+**The baseline wins, at ~18× the speed.** Published because it is true. If your
 users paste headings and product names, the transformer is costing you money.
 
 The one query both miss is `"Appendices"` — a two-page navigational stub with no
@@ -203,11 +237,18 @@ mass index"), which is exactly the case dense retrieval is bought for.
 
 | | recall@5 | median latency |
 |---|---|---|
-| dense, all-mpnet-base-v2 | **1.000** (34/34) | 46.9 ms |
-| BM25 (keyword baseline) | 0.588 (20/34) | 4.76 ms |
+| dense, all-mpnet-base-v2 | **1.000** (34/34) | 99.8 ms |
+| BM25 (keyword baseline) | 0.588 (20/34) | 8.9 ms |
 
 **+0.412 recall@5 for the model.** That gap, and not Set A, is the entire
 argument for embedding anything.
+
+> **On the latency figures.** Absolute milliseconds are load-dependent — these
+> were taken on a contended CPU, and an earlier run of the same command on the
+> same index gave 38.1/2.1 ms (Set A) and 46.9/4.8 ms (Set B). The recall figures
+> were **identical in both runs**; only the timings moved. Treat the ratio
+> (dense costs roughly 10–20× BM25) as the reproducible quantity, not the
+> absolute numbers.
 
 > ### Caveat, stated plainly
 >
@@ -296,11 +337,11 @@ so the grounding figure above is reproducible by any reader with no credential.
 
 ```bash
 $ python tests/test_ragpdf.py
-ragpdf: 13/13 passed, 0 failed
+ragpdf: 14/14 passed, 0 failed
 
 $ python tests/verify_tests.py
 3/3 chunking assertions fail against the original.
-rebuild (full suite): 13/13 passed, 0 failed
+rebuild (full suite): 14/14 passed, 0 failed
 RESULT: suite is trustworthy
 ```
 
@@ -312,9 +353,16 @@ textbook has.
 5, 9 and 12. `verify_tests.py` runs the three chunking assertions against it, and
 all three must fail — if they passed, the suite would be decorative.
 
-`test_chunk_carries_its_page` is deliberately **excluded** from that count: the
-original satisfies it. Counting a test the old code passes would inflate the
-number, and it is a sanity check rather than a discriminator.
+Two tests are deliberately **excluded** from that 3/3 count, because the
+original passes them:
+
+- `test_chunk_carries_its_page` — a sanity check, not a discriminator.
+- `test_closing_punctuation_stays_with_its_sentence` — this guards a bug in the
+  **rewrite** (§1, "A bug in the rewrite"), not one the original had. It is a
+  regression test, and counting it would inflate a number that is supposed to
+  measure how well the suite catches the *original's* defects.
+
+Counting either would make the suite look more discriminating than it is.
 
 ---
 

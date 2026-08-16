@@ -135,6 +135,16 @@ def test_chunk_carries_its_page(chunker=ch.chunk_page):
         assert c["page"] == 7
 
 
+def test_closing_punctuation_stays_with_its_sentence(chunker=ch.chunk_page):
+    """A sentence ends after its closing bracket or quote, not before it. Ending
+    a span at the boundary match start instead truncated '(See figure 3.)' to
+    '(See figure 3.' on any chunk whose final boundary landed there -- still a
+    verbatim slice, just one character short of the sentence."""
+    joined = "".join(c["text"] for c in _chunks(chunker, n=1))
+    for closer in ('adequate."', "(See figure 3.)"):
+        assert closer in joined, f"{closer!r} lost its closing character"
+
+
 # --- retrieval ---------------------------------------------------------------
 
 def test_bm25_idf_never_negative(chunker=None):

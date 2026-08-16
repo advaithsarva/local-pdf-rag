@@ -25,7 +25,13 @@ PAGE_OFFSET = 41
 # only moves a chunk boundary -- it cannot corrupt the text, because the text
 # is a slice. Add an abbreviation list only if boundary quality is measured
 # and found wanting.
-_BOUNDARY = re.compile(r'(?<=[.!?])["\'’”)\]]*\s')
+#
+# The capture group is load-bearing: a sentence ends AFTER its closing quote or
+# bracket, not before it. Ending the span at the match start instead dropped the
+# ')' from '(Salt is 60 percent chloride.)' on the 9 chunks (of 1,715) whose
+# final boundary landed on one. Still a verbatim slice either way -- just a
+# slice one character short of the sentence.
+_BOUNDARY = re.compile(r'(?<=[.!?])["\'’”)\]]*(\s)')
 
 
 def page_texts(pdf_path: str) -> list[str]:
@@ -39,7 +45,7 @@ def sentence_spans(text: str) -> list[tuple[int, int]]:
     sentences belongs to neither, so slicing across a group keeps it."""
     spans, start = [], 0
     for m in _BOUNDARY.finditer(text):
-        end = m.start()
+        end = m.start(1)          # the whitespace, so closers stay with the sentence
         if text[start:end].strip():
             spans.append((start, end))
         start = m.end()
