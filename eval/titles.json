@@ -1,0 +1,1400 @@
+[
+ {
+  "query": "Food Quality",
+  "gold_pages": [
+   14,
+   15,
+   16,
+   17
+  ]
+ },
+ {
+  "query": "Units of Measure",
+  "gold_pages": [
+   18,
+   19,
+   20
+  ]
+ },
+ {
+  "query": "Lifestyles and Nutrition",
+  "gold_pages": [
+   21,
+   22,
+   23,
+   24,
+   25,
+   26,
+   27,
+   28,
+   29
+  ]
+ },
+ {
+  "query": "Achieving a Healthy Diet",
+  "gold_pages": [
+   30,
+   31,
+   32,
+   33
+  ]
+ },
+ {
+  "query": "Research and the Scientific Method",
+  "gold_pages": [
+   34,
+   35,
+   36,
+   37,
+   38,
+   39,
+   40
+  ]
+ },
+ {
+  "query": "Types of Scientific Studies",
+  "gold_pages": [
+   41,
+   42,
+   43,
+   44,
+   45,
+   46,
+   47,
+   48,
+   49,
+   50,
+   51,
+   52
+  ]
+ },
+ {
+  "query": "Basic Biology, Anatomy, and Physiology",
+  "gold_pages": [
+   62,
+   63,
+   64,
+   65,
+   66,
+   67
+  ]
+ },
+ {
+  "query": "The Digestive System",
+  "gold_pages": [
+   68,
+   69,
+   70,
+   71,
+   72,
+   73,
+   74,
+   75,
+   76,
+   77,
+   78,
+   79,
+   80,
+   81
+  ]
+ },
+ {
+  "query": "The Cardiovascular System",
+  "gold_pages": [
+   82,
+   83,
+   84,
+   85,
+   86,
+   87,
+   88,
+   89,
+   90,
+   91,
+   92,
+   93
+  ]
+ },
+ {
+  "query": "Central Nervous System",
+  "gold_pages": [
+   94,
+   95,
+   96,
+   97,
+   98
+  ]
+ },
+ {
+  "query": "The Respiratory System",
+  "gold_pages": [
+   99,
+   100,
+   101,
+   102,
+   103,
+   104,
+   105
+  ]
+ },
+ {
+  "query": "The Endocrine System",
+  "gold_pages": [
+   106,
+   107,
+   108,
+   109
+  ]
+ },
+ {
+  "query": "The Urinary System",
+  "gold_pages": [
+   110,
+   111,
+   112,
+   113,
+   114,
+   115,
+   116
+  ]
+ },
+ {
+  "query": "The Muscular System",
+  "gold_pages": [
+   117,
+   118,
+   119
+  ]
+ },
+ {
+  "query": "The Skeletal System",
+  "gold_pages": [
+   120,
+   121,
+   122,
+   123,
+   124,
+   125,
+   126,
+   127,
+   128
+  ]
+ },
+ {
+  "query": "The Immune System",
+  "gold_pages": [
+   129,
+   130,
+   131,
+   132
+  ]
+ },
+ {
+  "query": "Indicators of Health: Body Mass Index, Body Fat Content, and Fat Distribution",
+  "gold_pages": [
+   133,
+   134,
+   135,
+   136,
+   137,
+   138,
+   139,
+   140,
+   141,
+   142
+  ]
+ },
+ {
+  "query": "Overview of Fluid and Electrolyte Balance",
+  "gold_pages": [
+   150,
+   151,
+   152,
+   153,
+   154,
+   155
+  ]
+ },
+ {
+  "query": "Water’s Importance to Vitality",
+  "gold_pages": [
+   156,
+   157,
+   158,
+   159,
+   160,
+   161
+  ]
+ },
+ {
+  "query": "Regulation of Water Balance",
+  "gold_pages": [
+   162,
+   163,
+   164,
+   165,
+   166,
+   167,
+   168,
+   169,
+   170,
+   171
+  ]
+ },
+ {
+  "query": "Electrolytes Important for Fluid Balance",
+  "gold_pages": [
+   172,
+   173,
+   174,
+   175
+  ]
+ },
+ {
+  "query": "Chloride",
+  "gold_pages": [
+   190,
+   191,
+   192,
+   193,
+   194
+  ]
+ },
+ {
+  "query": "Potassium",
+  "gold_pages": [
+   195,
+   196,
+   197,
+   198
+  ]
+ },
+ {
+  "query": "Consequences of Deficiency or Excess",
+  "gold_pages": [
+   199,
+   200,
+   201,
+   202,
+   203,
+   204,
+   205,
+   206,
+   207,
+   208
+  ]
+ },
+ {
+  "query": "Water Concerns",
+  "gold_pages": [
+   209,
+   210,
+   211,
+   212,
+   213,
+   214,
+   215
+  ]
+ },
+ {
+  "query": "Popular Beverage Choices",
+  "gold_pages": [
+   216,
+   217,
+   218,
+   219,
+   220,
+   221,
+   222,
+   223,
+   224,
+   225,
+   226
+  ]
+ },
+ {
+  "query": "Digestion and Absorption of Carbohydrates",
+  "gold_pages": [
+   240,
+   241,
+   242,
+   243,
+   244,
+   245,
+   246,
+   247,
+   248,
+   249,
+   250,
+   251,
+   252
+  ]
+ },
+ {
+  "query": "The Functions of Carbohydrates in the Body",
+  "gold_pages": [
+   253,
+   254,
+   255,
+   256,
+   257,
+   258,
+   259
+  ]
+ },
+ {
+  "query": "Health Consequences and Benefits of High-Carbohydrate Diets",
+  "gold_pages": [
+   260,
+   261,
+   262,
+   263,
+   264,
+   265,
+   266,
+   267,
+   268,
+   269,
+   270
+  ]
+ },
+ {
+  "query": "Carbohydrates and Personal Diet Choices",
+  "gold_pages": [
+   271,
+   272,
+   273,
+   274,
+   275,
+   276,
+   277,
+   278,
+   279,
+   280,
+   281,
+   282,
+   283,
+   284,
+   285,
+   286,
+   287,
+   288
+  ]
+ },
+ {
+  "query": "The Functions of Lipids in the Body",
+  "gold_pages": [
+   296,
+   297,
+   298,
+   299,
+   300
+  ]
+ },
+ {
+  "query": "The Role of Lipids in Food",
+  "gold_pages": [
+   301,
+   302,
+   303,
+   304
+  ]
+ },
+ {
+  "query": "How Lipids Work",
+  "gold_pages": [
+   305,
+   306,
+   307,
+   308,
+   309,
+   310,
+   311,
+   312
+  ]
+ },
+ {
+  "query": "Nonessential and Essential Fatty Acids",
+  "gold_pages": [
+   313,
+   314,
+   315,
+   316,
+   317,
+   318
+  ]
+ },
+ {
+  "query": "Digestion and Absorption of Lipids",
+  "gold_pages": [
+   319,
+   320,
+   321,
+   322,
+   323,
+   324,
+   325,
+   326,
+   327,
+   328,
+   329,
+   330
+  ]
+ },
+ {
+  "query": "Tools for Change",
+  "gold_pages": [
+   331,
+   332,
+   333,
+   334,
+   335,
+   336,
+   337,
+   338,
+   339
+  ]
+ },
+ {
+  "query": "Lipids and the Food Industry",
+  "gold_pages": [
+   340,
+   341,
+   342,
+   343,
+   344
+  ]
+ },
+ {
+  "query": "Lipids and Disease",
+  "gold_pages": [
+   345,
+   346,
+   347,
+   348,
+   349,
+   350
+  ]
+ },
+ {
+  "query": "A Personal Choice about Lipids",
+  "gold_pages": [
+   351,
+   352,
+   353,
+   354,
+   355,
+   356
+  ]
+ },
+ {
+  "query": "Defining Protein",
+  "gold_pages": [
+   363,
+   364,
+   365,
+   366,
+   367,
+   368,
+   369,
+   370,
+   371,
+   372,
+   373
+  ]
+ },
+ {
+  "query": "The Role of Proteins in Foods: Cooking and Denaturation",
+  "gold_pages": [
+   374,
+   375,
+   376,
+   377
+  ]
+ },
+ {
+  "query": "Protein Digestion and Absorption",
+  "gold_pages": [
+   378,
+   379,
+   380,
+   381,
+   382
+  ]
+ },
+ {
+  "query": "Protein’s Functions in the Body",
+  "gold_pages": [
+   383,
+   384,
+   385,
+   386,
+   387,
+   388,
+   389,
+   390,
+   391,
+   392,
+   393,
+   394
+  ]
+ },
+ {
+  "query": "Diseases Involving Proteins",
+  "gold_pages": [
+   395,
+   396,
+   397,
+   398,
+   399,
+   400,
+   401,
+   402,
+   403,
+   404
+  ]
+ },
+ {
+  "query": "Proteins in a Nutshell",
+  "gold_pages": [
+   405,
+   406,
+   407,
+   408
+  ]
+ },
+ {
+  "query": "Proteins, Diet, and Personal Choices",
+  "gold_pages": [
+   409,
+   410,
+   411,
+   412,
+   413,
+   414,
+   415,
+   416,
+   417,
+   418,
+   419,
+   420,
+   421,
+   422,
+   423,
+   424,
+   425,
+   426,
+   427,
+   428
+  ]
+ },
+ {
+  "query": "Alcohol Metabolism",
+  "gold_pages": [
+   436,
+   437,
+   438,
+   439,
+   440,
+   441
+  ]
+ },
+ {
+  "query": "Health Consequences of Alcohol Abuse",
+  "gold_pages": [
+   442,
+   443,
+   444,
+   445,
+   446,
+   447
+  ]
+ },
+ {
+  "query": "Health Benefits of Moderate Alcohol Intake",
+  "gold_pages": [
+   448,
+   449,
+   450
+  ]
+ },
+ {
+  "query": "The Atom",
+  "gold_pages": [
+   460,
+   461,
+   462,
+   463,
+   464,
+   465,
+   466,
+   467,
+   468,
+   469,
+   470,
+   471
+  ]
+ },
+ {
+  "query": "Weight Management",
+  "gold_pages": [
+   472,
+   473,
+   474,
+   475,
+   476,
+   477,
+   478,
+   479,
+   480,
+   481,
+   482,
+   483,
+   484
+  ]
+ },
+ {
+  "query": "Factors Affecting Energy Intake",
+  "gold_pages": [
+   485,
+   486,
+   487,
+   488,
+   489,
+   490,
+   491
+  ]
+ },
+ {
+  "query": "Factors Affecting Energy Expenditure",
+  "gold_pages": [
+   492,
+   493,
+   494,
+   495,
+   496,
+   497,
+   498,
+   499,
+   500
+  ]
+ },
+ {
+  "query": "Dietary, Behavioral, and Physical Activity Recommendations for Weight Management",
+  "gold_pages": [
+   501,
+   502,
+   503,
+   504,
+   505,
+   506,
+   507,
+   508,
+   509,
+   510,
+   511,
+   512
+  ]
+ },
+ {
+  "query": "Fat-Soluble Vitamins",
+  "gold_pages": [
+   521,
+   522,
+   523,
+   524,
+   525,
+   526,
+   527,
+   528,
+   529,
+   530,
+   531,
+   532,
+   533,
+   534,
+   535,
+   536,
+   537,
+   538,
+   539,
+   540,
+   541,
+   542,
+   543,
+   544,
+   545,
+   546,
+   547,
+   548,
+   549
+  ]
+ },
+ {
+  "query": "Antioxidants",
+  "gold_pages": [
+   593,
+   594,
+   595,
+   596
+  ]
+ },
+ {
+  "query": "The Body’s Offense",
+  "gold_pages": [
+   597,
+   598,
+   599
+  ]
+ },
+ {
+  "query": "Phytochemicals",
+  "gold_pages": [
+   600,
+   601,
+   602,
+   603,
+   604,
+   605,
+   606
+  ]
+ },
+ {
+  "query": "Phosphorus",
+  "gold_pages": [
+   631,
+   632,
+   633,
+   634
+  ]
+ },
+ {
+  "query": "Magnesium",
+  "gold_pages": [
+   640,
+   641,
+   642,
+   643,
+   644
+  ]
+ },
+ {
+  "query": "Summary of Major Minerals",
+  "gold_pages": [
+   645,
+   646,
+   647,
+   648
+  ]
+ },
+ {
+  "query": "Selenium",
+  "gold_pages": [
+   675,
+   676,
+   677,
+   678,
+   679,
+   680
+  ]
+ },
+ {
+  "query": "Chromium",
+  "gold_pages": [
+   686,
+   687,
+   688
+  ]
+ },
+ {
+  "query": "Manganese",
+  "gold_pages": [
+   689,
+   690,
+   691
+  ]
+ },
+ {
+  "query": "Molybdenum",
+  "gold_pages": [
+   692,
+   693,
+   694
+  ]
+ },
+ {
+  "query": "Fluoride",
+  "gold_pages": [
+   695,
+   696,
+   697,
+   698,
+   699
+  ]
+ },
+ {
+  "query": "Summary of Trace Minerals",
+  "gold_pages": [
+   700,
+   701,
+   702,
+   703,
+   704
+  ]
+ },
+ {
+  "query": "Understanding Dietary Reference Intakes",
+  "gold_pages": [
+   710,
+   711,
+   712,
+   713,
+   714,
+   715,
+   716,
+   717
+  ]
+ },
+ {
+  "query": "Discovering Nutrition Facts",
+  "gold_pages": [
+   718,
+   719,
+   720,
+   721,
+   722,
+   723,
+   724,
+   725,
+   726,
+   727,
+   728,
+   729,
+   730,
+   731,
+   732,
+   733,
+   734,
+   735,
+   736,
+   737,
+   738,
+   739
+  ]
+ },
+ {
+  "query": "Building Healthy Eating Patterns",
+  "gold_pages": [
+   740,
+   741,
+   742,
+   743,
+   744
+  ]
+ },
+ {
+  "query": "MyPlate Planner",
+  "gold_pages": [
+   745,
+   746,
+   747,
+   748,
+   749,
+   750,
+   751,
+   752,
+   753,
+   754,
+   755,
+   756,
+   757,
+   758,
+   759
+  ]
+ },
+ {
+  "query": "Pacific Based Dietary Guidelines",
+  "gold_pages": [
+   760,
+   761,
+   762,
+   763,
+   764,
+   765,
+   766,
+   767
+  ]
+ },
+ {
+  "query": "Understanding the Bigger Picture of Dietary Guidelines",
+  "gold_pages": [
+   768,
+   769,
+   770,
+   771,
+   772,
+   773,
+   774,
+   775,
+   776
+  ]
+ },
+ {
+  "query": "Pregnancy",
+  "gold_pages": [
+   785,
+   786,
+   787,
+   788,
+   789,
+   790,
+   791,
+   792,
+   793,
+   794,
+   795,
+   796,
+   797,
+   798,
+   799,
+   800,
+   801,
+   802,
+   803,
+   804,
+   805,
+   806
+  ]
+ },
+ {
+  "query": "Toddler Years",
+  "gold_pages": [
+   852,
+   853,
+   854,
+   855,
+   856,
+   857,
+   858,
+   859,
+   860,
+   861,
+   862,
+   863,
+   864
+  ]
+ },
+ {
+  "query": "Childhood",
+  "gold_pages": [
+   871,
+   872,
+   873,
+   874,
+   875,
+   876,
+   877,
+   878,
+   879,
+   880,
+   881,
+   882,
+   883
+  ]
+ },
+ {
+  "query": "Adolescence",
+  "gold_pages": [
+   884,
+   885,
+   886,
+   887,
+   888
+  ]
+ },
+ {
+  "query": "Late Adolescence",
+  "gold_pages": [
+   889,
+   890,
+   891,
+   892,
+   893,
+   894,
+   895,
+   896,
+   897,
+   898,
+   899,
+   900
+  ]
+ },
+ {
+  "query": "Young Adulthood",
+  "gold_pages": [
+   907,
+   908,
+   909,
+   910,
+   911,
+   912
+  ]
+ },
+ {
+  "query": "Middle Age",
+  "gold_pages": [
+   913,
+   914,
+   915,
+   916,
+   917,
+   918
+  ]
+ },
+ {
+  "query": "Older Adulthood: The Golden Years",
+  "gold_pages": [
+   919,
+   920,
+   921,
+   922,
+   923,
+   924,
+   925,
+   926,
+   927,
+   928,
+   929,
+   930
+  ]
+ },
+ {
+  "query": "The Essential Elements of Physical Fitness",
+  "gold_pages": [
+   936,
+   937,
+   938,
+   939,
+   940,
+   941,
+   942,
+   943,
+   944
+  ]
+ },
+ {
+  "query": "The Benefits of Physical Activity",
+  "gold_pages": [
+   945,
+   946,
+   947,
+   948,
+   949
+  ]
+ },
+ {
+  "query": "Fuel Sources",
+  "gold_pages": [
+   950,
+   951,
+   952,
+   953,
+   954,
+   955,
+   956,
+   957,
+   958
+  ]
+ },
+ {
+  "query": "Sports Nutrition",
+  "gold_pages": [
+   959,
+   960,
+   961,
+   962,
+   963,
+   964,
+   965,
+   966,
+   967,
+   968,
+   969,
+   970,
+   971
+  ]
+ },
+ {
+  "query": "Water and Electrolyte Needs",
+  "gold_pages": [
+   972,
+   973,
+   974,
+   975,
+   976
+  ]
+ },
+ {
+  "query": "Food Supplements and Food Replacements",
+  "gold_pages": [
+   977,
+   978,
+   979,
+   980,
+   981,
+   982,
+   983,
+   984
+  ]
+ },
+ {
+  "query": "The Major Types of Foodborne Illness",
+  "gold_pages": [
+   992,
+   993,
+   994,
+   995,
+   996
+  ]
+ },
+ {
+  "query": "The Causes of Food Contamination",
+  "gold_pages": [
+   997,
+   998,
+   999,
+   1000,
+   1001,
+   1002,
+   1003,
+   1004,
+   1005,
+   1006,
+   1007,
+   1008,
+   1009,
+   1010
+  ]
+ },
+ {
+  "query": "Protecting the Public Health",
+  "gold_pages": [
+   1011,
+   1012,
+   1013,
+   1014,
+   1015,
+   1016
+  ]
+ },
+ {
+  "query": "The Food System",
+  "gold_pages": [
+   1017,
+   1018
+  ]
+ },
+ {
+  "query": "Food Preservation",
+  "gold_pages": [
+   1019,
+   1020,
+   1021,
+   1022,
+   1023,
+   1024
+  ]
+ },
+ {
+  "query": "Food Processing",
+  "gold_pages": [
+   1025,
+   1026,
+   1027,
+   1028,
+   1029
+  ]
+ },
+ {
+  "query": "The Effect of New Technologies",
+  "gold_pages": [
+   1030,
+   1031,
+   1032,
+   1033
+  ]
+ },
+ {
+  "query": "Efforts on the Consumer Level: What You Can Do",
+  "gold_pages": [
+   1034,
+   1035,
+   1036,
+   1037,
+   1038,
+   1039,
+   1040
+  ]
+ },
+ {
+  "query": "Comparing Diets",
+  "gold_pages": [
+   1046,
+   1047,
+   1048,
+   1049,
+   1050,
+   1051,
+   1052,
+   1053,
+   1054,
+   1055,
+   1056,
+   1057,
+   1058,
+   1059,
+   1060,
+   1061,
+   1062
+  ]
+ },
+ {
+  "query": "Calories In Versus Calories Out",
+  "gold_pages": [
+   1063,
+   1064,
+   1065,
+   1066,
+   1067,
+   1068,
+   1069,
+   1070,
+   1071,
+   1072,
+   1073,
+   1074,
+   1075
+  ]
+ },
+ {
+  "query": "Nutrition, Health and Disease",
+  "gold_pages": [
+   1076,
+   1077,
+   1078,
+   1079,
+   1080,
+   1081,
+   1082,
+   1083,
+   1084,
+   1085,
+   1086,
+   1087,
+   1088,
+   1089,
+   1090,
+   1091,
+   1092,
+   1093,
+   1094,
+   1095,
+   1096,
+   1097
+  ]
+ },
+ {
+  "query": "Threats to Health",
+  "gold_pages": [
+   1098,
+   1099,
+   1100,
+   1101,
+   1102,
+   1103,
+   1104,
+   1105,
+   1106,
+   1107,
+   1108,
+   1109,
+   1110,
+   1111,
+   1112,
+   1113,
+   1114,
+   1115,
+   1116,
+   1117,
+   1118,
+   1119,
+   1120
+  ]
+ },
+ {
+  "query": "Undernutrition, Overnutrition, and Malnutrition",
+  "gold_pages": [
+   1121,
+   1122,
+   1123,
+   1124,
+   1125,
+   1126,
+   1127,
+   1128,
+   1129,
+   1130,
+   1131
+  ]
+ },
+ {
+  "query": "Food Insecurity",
+  "gold_pages": [
+   1132,
+   1133,
+   1134,
+   1135,
+   1136,
+   1137,
+   1138,
+   1139,
+   1140,
+   1141,
+   1142
+  ]
+ },
+ {
+  "query": "Careers in Nutrition",
+  "gold_pages": [
+   1143,
+   1144,
+   1145,
+   1146,
+   1147,
+   1148
+  ]
+ },
+ {
+  "query": "Appendices",
+  "gold_pages": [
+   1149,
+   1150
+  ]
+ },
+ {
+  "query": "Attributions",
+  "gold_pages": [
+   1156,
+   1157,
+   1158,
+   1159,
+   1160,
+   1161,
+   1162,
+   1163,
+   1164,
+   1165,
+   1166
+  ]
+ }
+]

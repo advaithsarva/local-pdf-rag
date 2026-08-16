@@ -1,0 +1,16 @@
+# Three runtime dependencies. The original notebook needed twelve:
+# torch, PyMuPDF, tqdm, sentence-transformers, accelerate, bitsandbytes,
+# flash-attn, spacy, pandas, matplotlib, transformers, psutil.
+#
+# torch and transformers arrive as sentence-transformers dependencies; they are
+# not declared separately because nothing here pins or configures them.
+# spacy is gone: chunk.py splits sentences with a regex and slices the page, so
+# the sentencizer's Span semantics -- the source of THE bug -- are out of the
+# picture entirely. pandas is gone: the index is .npy + .json, not a 22 MB CSV
+# of stringified floats.
+pymupdf>=1.24
+sentence-transformers>=3.0
+numpy>=1.26
+
+# Dev only, not needed to run anything:
+#   spacy>=3.7      tests/original_impl.py, to prove the tests fail on the original

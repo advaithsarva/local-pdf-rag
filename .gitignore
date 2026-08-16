@@ -1,0 +1,23 @@
+# Build artifacts -- regenerate with `python -m ragpdf.cli build` (~7 min, CPU)
+index/
+eval/results.json
+eval/generation_results.json
+
+# The source document: 26 MB, downloadable, and not mine to redistribute.
+# `python -m ragpdf.cli build` will not fetch it -- see README, step 1.
+human-nutrition-text.pdf
+
+# The original pipeline's output artifact. Kept locally as the "before" side of
+# the verbatim measurement in RESULTS.md; 22 MB of stringified floats, not
+# something to commit.
+text_chunks_and_embeddings_df.csv
+
+# Local-only notes (see workflow.md Phase 7)
+observe.md
+CLAUDE.md
+
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+_tmp_idx/
+.venv/

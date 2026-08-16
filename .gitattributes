@@ -1,0 +1,4 @@
+# The archived original notebook is 550 KB of saved cell outputs and would
+# otherwise outweigh the source, making GitHub label a Python project
+# "Jupyter Notebook". It is kept as a record, not as the project.
+notebooks/original/*.ipynb linguist-documentation
