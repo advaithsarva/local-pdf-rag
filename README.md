@@ -60,22 +60,39 @@ python eval/measure_original.py
 `ask --json` is the machine surface. It prints one object and nothing else:
 
 ```bash
-$ python -m ragpdf.cli ask "which mineral protects teeth" --json
+$ python -m ragpdf.cli ask "which mineral is added to water to protect teeth" --json
 {
-  "answer": "...",
-  "pages": [695, 696, 697],
-  "scores": [0.6612, 0.6104, 0.5773],
+  "answer": "Fluoride ... Fluoride is known mostly as the mineral that combats
+              tooth decay. ... Fluoride was first added to drinking water in 1945
+              in Grand Rapids, Michigan; ...",
+  "pages": [695, 696, 1083, 1083, 702],
+  "scores": [0.7042, 0.5819, 0.5256, 0.5209, 0.5173],
   "generated": false,
   "abstained": false,
   "reason": "extractive baseline",
-  "query": "which mineral protects teeth",
-  "retrieval_ms": 41.2
+  "query": "which mineral is added to water to protect teeth",
+  "retrieval_ms": 116.4
+}
+
+$ python -m ragpdf.cli ask "who won the 2010 FIFA World Cup" --json
+{
+  "answer": "The textbook does not cover this.",
+  "pages": [],
+  "scores": [],
+  "generated": false,
+  "abstained": true,
+  "reason": "best retrieval score 0.168 < MIN_SCORE 0.35",
+  "query": "who won the 2010 FIFA World Cup",
+  "retrieval_ms": 125.2
 }
 ```
 
-`abstained: true` with `pages: []` is the "not in this document" answer. Because
-of the invariant, every page in `pages` can be opened and the quoted text found
-on it.
+Real output, `answer` elided for length — everything else verbatim.
+`abstained: true` with `pages: []` is the "not in this document" answer, and the
+`reason` always names the number that produced it. `pages` is one entry per
+retrieved chunk and **may repeat** (1083 twice above) when two chunks come from
+the same page. Because of the invariant, every page listed can be opened and the
+quoted text found on it.
 
 ---
 
