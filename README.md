@@ -122,10 +122,17 @@ Abstention, on 12 questions the textbook cannot answer:
 The threshold sits in a real gap, not a tuned one: in-corpus top-1 scores bottom
 out at 0.410, out-of-corpus scores top out at 0.277.
 
-**Generation is the trade, not the upgrade.** See RESULTS.md §5 — the generated
-answer is ~4× shorter than the passages it replaces and takes ~48 s on CPU
-instead of ~0 s, and it introduces content the retrieved pages do not contain.
-The number is published there whether or not it flatters the feature.
+**Generation is the trade, not the upgrade** — and it loses the half that matters:
+
+| | grounding | median length | latency |
+|---|---|---|---|
+| extractive baseline | **1.000** | 5,052 chars | ~0 s |
+| generated (Qwen2.5-0.5B-Instruct) | **0.632** | **350 chars** | 31 s median |
+
+14× shorter, but more than a third of the generated answer's content words are
+not on the pages it cites. So **the extractive path is the default and
+`--generate` is opt-in.** RESULTS.md §5 has the two failure modes, including one
+answer that is fluent, correctly cited and factually wrong.
 
 ---
 

@@ -318,9 +318,57 @@ return the 5 retrieved passages verbatim with their page numbers.
 python eval/run_generation.py    # 34 questions, Qwen/Qwen2.5-0.5B-Instruct, CPU
 ```
 
-*Numbers filled in below from `eval/generation_results.json`.*
+34 questions (Set B), same index, same retrieved context for both paths, greedy
+decoding so the figure is deterministic rather than one sample.
 
-<!--GENERATION_RESULTS-->
+| | grounding | median length | latency |
+|---|---|---|---|
+| extractive baseline | **1.000** | 5,052 chars | ~0 s |
+| generated (Qwen2.5-0.5B-Instruct) | **0.632** | **350 chars** | 31.3 s median, 102.4 s max |
+
+**The generator loses on the accuracy-shaped number and wins on the
+readability-shaped one.** It is a trade, and both halves of it are real:
+
+- **14× shorter.** 350 characters instead of 5,052 — one paragraph instead of
+  five passages. That is the whole reason anyone wants this.
+- **0.632 grounding.** More than a third of the answer's content words are not in
+  the pages it cites. They come from the model's weights. On a 0.5B model that
+  is the expected price; it is still a price.
+- **31 seconds instead of zero**, on CPU, with a 102-second worst case.
+
+Per the rule this feature was built under — *if the model cannot beat the boring
+version on a number you can produce, say so* — **it does not beat it on
+correctness, so the extractive path stays the default.** `--generate` is opt-in,
+and that is the finding, not an oversight.
+
+### Two failure modes worth naming
+
+**1. The model refuses when the context contains the answer. 1 of 34.**
+
+> *"which fats must come from food because the body cannot make them"*
+> → **"The textbook does not cover this."**
+
+Retrieval was correct here — Set B is 34/34, so *Nonessential and Essential Fatty
+Acids* was in the context. The 0.5B model declined anyway. This is a **model-level
+false refusal**, entirely distinct from the §4 score gate, which never fired on
+this query. A system can have a perfectly calibrated abstention threshold and
+still refuse for a completely different reason one layer up. Excluding it,
+grounding over the remaining 33 is 0.651 (min 0.167, median 0.600, max 1.000,
+with 5 answers fully grounded).
+
+**2. A fluent, plausible, subtly wrong answer. Grounding 0.167:**
+
+> *"how does canning or freezing stop food from spoiling"* → *"Canning or freezing
+> prevent food spoilage by removing all living organisms and enzymes, thus
+> preventing bacterial growth and chemical reactions that cause food to
+> deteriorate."*
+
+Freezing removes neither organisms nor enzymes — it suspends them. The answer
+reads well, cites pages 1019–1036 which really are about food preservation, and
+is wrong. **This is why §8 says factual accuracy is not measured anywhere here.**
+Grounding caught this one at 0.167 because the invented claim used vocabulary
+absent from the pages, but grounding measures word provenance, not truth, and it
+will not catch a wrong claim assembled from the right words.
 
 ### Why the default model is not the one the notebook used
 
