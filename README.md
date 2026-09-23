@@ -145,8 +145,26 @@ split of Set A, with the held-out titles and all of Set B kept unseen:
 
 It wins on data shaped like what it trained on and loses on the harder, more
 realistic set — so `retrieve.py`'s default is unchanged and `demo/app.py` exposes
-both retrievers, selectable, rather than silently swapping one in. RESULTS.md §8
+both retrievers, selectable, rather than silently swapping one in. RESULTS.md §9
 has the full breakdown, including the three newly-shared misses worth a label check.
+
+**Standard generation metrics (BLEU, ROUGE-L, F1), scored against the
+retrieved context** — computed from scratch, no gold answers invented for a
+book that never had them:
+
+| | mean |
+|---|---|
+| BLEU | 0.000 |
+| ROUGE-L | 0.066 |
+| F1 (precision / recall) | 0.112 (0.632 / 0.065) |
+
+BLEU and F1-recall read as a near-failure here and are not one: both are
+structurally near-zero whenever a short summary is scored against a much
+longer reference, which is exactly this task's shape (a ~350-character
+answer against ~2,000+ words of retrieved context). F1-precision (0.632) is
+the same number as the grounding figure above, now reported with its recall
+counterpart rather than alone. RESULTS.md §6 has the full reasoning and the
+per-question breakdown.
 
 ---
 
@@ -192,6 +210,7 @@ ragpdf/embed.py      chunks -> index/{chunks.json, embeddings.npy}
 ragpdf/retrieve.py   dense() and BM25 -- the model path and the boring path
 ragpdf/answer.py     abstain / extract / generate, with degradation rules
 ragpdf/finetune_retriever.py  fine-tunes the bi-encoder on Set A's train split
+ragpdf/text_metrics.py  BLEU / ROUGE-L / F1 from scratch, self-checked in __main__
 ragpdf/cli.py        build · ask · eval · verify
 
 demo/app.py           Gradio front end -- wraps cli.py's functions, no logic of its own
@@ -202,8 +221,9 @@ eval/out_of_corpus.json  Set C, 12 questions the book cannot answer
 eval/run_eval.py     every retrieval and abstention number
 eval/run_generation.py   the Phase 3.5 comparison
 eval/compare_finetuned.py  base vs fine-tuned retriever, on data neither trained on
+eval/measure_text_metrics.py  BLEU/ROUGE-L/F1 on the cached generation results
 
-tests/test_ragpdf.py     18 tests, no network, no PDF, <1 s
+tests/test_ragpdf.py     23 tests, no network, no PDF, <1 s
 tests/original_impl.py   the original chunker, transcribed from the notebook
 tests/verify_tests.py    runs the tests against it -- 3/3 must fail
 ```

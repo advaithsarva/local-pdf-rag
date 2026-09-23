@@ -19,6 +19,7 @@ from ragpdf import chunk as ch
 from ragpdf import embed as emb
 from ragpdf import retrieve as ret
 from ragpdf import finetune_retriever as ft
+from ragpdf import text_metrics as tm
 
 # A page with every join hazard the real textbook has: a question mark, a URL
 # after a full stop, a quote, a bracket and a digit.
@@ -239,6 +240,38 @@ def test_build_pairs_takes_the_first_matching_chunk_only(chunker=None):
     titles = [{"query": "Topic", "gold_pages": [5, 5]}]
     pairs = ft.build_pairs(titles, chunks)
     assert pairs == [("Topic", "first chunk on page five")]
+
+
+# --- text_metrics: BLEU / ROUGE-L / F1, no model, no network -----------------
+
+def test_bleu_and_rouge_are_1_for_identical_text(chunker=None):
+    assert tm.bleu_score("the cat sat on the mat", "the cat sat on the mat") == 1.0
+    assert tm.rouge_l("the cat sat on the mat", "the cat sat on the mat") == 1.0
+
+
+def test_bleu_and_rouge_are_0_for_disjoint_vocabulary(chunker=None):
+    assert tm.bleu_score("apple banana cherry", "xylophone zebra yak") == 0.0
+    assert tm.rouge_l("apple banana cherry", "xylophone zebra yak") == 0.0
+
+
+def test_rouge_l_matches_a_hand_computed_lcs(chunker=None):
+    """candidate "the cat sat" against reference "the big cat sat down":
+    LCS is "the cat sat" (length 3) -- precision 3/3, recall 3/5, F1 0.75."""
+    assert abs(tm.rouge_l("the cat sat", "the big cat sat down") - 0.75) < 1e-9
+
+
+def test_token_f1_reports_precision_and_recall_separately(chunker=None):
+    """A short, fully-supported candidate against a longer reference should
+    show perfect precision but partial recall -- the case this function
+    exists to distinguish from a low-precision, hallucinating one."""
+    f = tm.token_f1("the cat sat on the mat", "a cat and a dog sat on a mat and rug")
+    assert f["precision"] == 1.0
+    assert 0.0 < f["recall"] < 1.0
+
+
+def test_bleu_brevity_penalty_discounts_a_short_candidate(chunker=None):
+    short = tm.bleu_score("the cat sat quietly", "the cat sat quietly on the warm mat today")
+    assert 0.0 < short < 1.0
 
 
 TESTS = [v for k, v in sorted(globals().items()) if k.startswith("test_")]

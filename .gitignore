@@ -2,6 +2,7 @@
 index/
 eval/results.json
 eval/generation_results.json
+eval/text_metrics_results.json
 
 # Fine-tuned retriever checkpoint (418 MB) -- regenerate with
 # `python -m ragpdf.finetune_retriever` (or notebooks/finetune_retriever_colab.ipynb

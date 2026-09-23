@@ -365,7 +365,7 @@ with 5 answers fully grounded).
 
 Freezing removes neither organisms nor enzymes — it suspends them. The answer
 reads well, cites pages 1019–1036 which really are about food preservation, and
-is wrong. **This is why §8 says factual accuracy is not measured anywhere here.**
+is wrong. **This is why §10 says factual accuracy is not measured anywhere here.**
 Grounding caught this one at 0.167 because the invented claim used vocabulary
 absent from the pages, but grounding measures word provenance, not truth, and it
 will not catch a wrong claim assembled from the right words.
@@ -381,15 +381,90 @@ so the grounding figure above is reproducible by any reader with no credential.
 
 ---
 
-## 6. Tests
+## 6. Standard generation metrics: BLEU, ROUGE-L, F1
+
+§5 measures grounding, a precision-only metric built for this project. This
+section adds the metrics a generation task is usually scored on, computed
+from scratch (`ragpdf/text_metrics.py`, self-checked against hand-computable
+examples — see that file's `__main__` block), against the same 34 Set B
+generated answers already in `eval/generation_results.json`.
+
+**The reference is the retrieved context, not a hand-written gold answer.**
+No gold answer text exists for Set B — only gold pages and a couple of
+evidence keywords (`eval/questions.json`) — and inventing reference text that
+was never in the book would violate the same rule that keeps grounding
+honest. The context is a legitimate reference on its own terms: it is a
+verbatim slice of the correct pages by `chunk.py`'s invariant, and the
+generation prompt (`ragpdf/answer.py`) explicitly instructs the model to
+"answer using only the context items below" — scoring the answer as a
+summary of that context is scoring it against the task it was actually
+asked to do.
+
+```bash
+python eval/measure_text_metrics.py
+```
+
+| Metric | Mean | Median |
+|---|---|---|
+| BLEU | **0.000** | 0.000 |
+| ROUGE-L | 0.066 | 0.058 |
+| F1 (precision / recall) | 0.112 (0.632 / 0.065) | 0.096 |
+
+**Read this correctly, or it looks like the generator failed completely —
+it did not.** BLEU and F1-recall are both structurally near-zero for this
+task, for the same reason: the reference is roughly five retrieved passages
+(often 2,000+ words) and the candidate is a ~350-character summary. BLEU
+requires the *candidate's* n-grams to be common in the reference, which a
+short paraphrase of a long passage will rarely satisfy at the 4-gram level —
+BLEU collapses to 0 the moment any one n-gram order has zero overlap, which
+is close to guaranteed at this length ratio. F1-recall (0.065) says the same
+thing in a softer way: a 350-character answer cannot contain more than a
+small fraction of a 2,000-word context's vocabulary, no matter how good the
+summary is.
+
+**F1-precision (0.632) is the number that carries signal here, and it is
+not new — it is §5's grounding figure, computed the same way, now reported
+alongside its recall counterpart instead of alone.** ROUGE-L's 0.066 sits
+where it does because, unlike BLEU, it credits non-contiguous matches (a
+longest-common-*subsequence*, not a run of exact n-grams), so it survives
+paraphrasing better — but it is still being asked to explain a short answer
+via a long reference, so it stays low for the same length-ratio reason.
+
+**The honest conclusion:** BLEU and ROUGE-L, in their standard form, are
+poorly suited to scoring "a one-paragraph answer against a five-passage
+context" — they are built for tasks where candidate and reference are
+comparable in length (translation, single-document summarization at a
+similar compression ratio). Precision-style metrics (grounding, F1-precision)
+are the ones that actually discriminate a good answer from a bad one at this
+length ratio, which is why §5 led with grounding rather than waiting for
+this section to justify it after the fact.
+
+The three lowest-F1 answers overlap partially with §5's own worst case:
+
+| Query | F1 | Precision | Recall |
+|---|---|---|---|
+| "which fats must come from food because the body cannot make them" | 0.000 | 0.000 | 0.000 |
+| "which trace mineral helps insulin do its job" | 0.020 | 0.500 | 0.010 |
+| "how does canning or freezing stop food from spoiling" | 0.021 | 0.167 | 0.011 |
+
+The third is the same fabrication documented in §5 ("freezing removes all
+living organisms and enzymes") — low precision there (0.167) is the metric
+catching the same invented claim a second way. The first, zero on every
+axis, is a new finding this section surfaces that grounding alone did not
+single out: worth reading by hand before trusting either metric's story
+about it (`eval/text_metrics_results.json` has the full answer text).
+
+---
+
+## 7. Tests
 
 ```bash
 $ python tests/test_ragpdf.py
-ragpdf: 14/14 passed, 0 failed
+ragpdf: 23/23 passed, 0 failed
 
 $ python tests/verify_tests.py
 3/3 chunking assertions fail against the original.
-rebuild (full suite): 14/14 passed, 0 failed
+rebuild (full suite): 23/23 passed, 0 failed
 RESULT: suite is trustworthy
 ```
 
@@ -414,7 +489,7 @@ Counting either would make the suite look more discriminating than it is.
 
 ---
 
-## 7. Dependencies
+## 8. Dependencies
 
 | | original | rebuild |
 |---|---|---|
@@ -431,7 +506,7 @@ separately because nothing here pins or configures them.
 
 ---
 
-## 8. Fine-tuning the retriever: a real trade, not a clean win
+## 9. Fine-tuning the retriever: a real trade, not a clean win
 
 `ragpdf/finetune_retriever.py` fine-tunes `all-mpnet-base-v2` with in-batch-negative
 contrastive loss (`MultipleNegativesRankingLoss`) on (section title, first matching
@@ -477,7 +552,7 @@ trade-off stays visible instead of getting silently deployed as an upgrade.
 
 ---
 
-## 9. What is not measured
+## 10. What is not measured
 
 - **The generated answer's factual correctness.** Grounding measures whether the
   answer's words came from the retrieved pages, not whether the claim is true.
