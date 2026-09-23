@@ -134,6 +134,20 @@ not on the pages it cites. So **the extractive path is the default and
 `--generate` is opt-in.** RESULTS.md §5 has the two failure modes, including one
 answer that is fluent, correctly cited and factually wrong.
 
+**Fine-tuning the retriever is a trade, not a clean win** — `ragpdf/finetune_retriever.py`
+fine-tunes the same bi-encoder on 82 (title, chunk) pairs from a disjoint 4-in-5
+split of Set A, with the held-out titles and all of Set B kept unseen:
+
+| | held-out Set A (in-domain) | Set B (unseen, untouched by training) |
+|---|---|---|
+| base | 0.952 | **1.000** |
+| fine-tuned | **1.000** | 0.912 |
+
+It wins on data shaped like what it trained on and loses on the harder, more
+realistic set — so `retrieve.py`'s default is unchanged and `demo/app.py` exposes
+both retrievers, selectable, rather than silently swapping one in. RESULTS.md §8
+has the full breakdown, including the three newly-shared misses worth a label check.
+
 ---
 
 ## What was here before

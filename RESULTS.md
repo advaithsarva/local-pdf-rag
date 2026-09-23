@@ -431,7 +431,53 @@ separately because nothing here pins or configures them.
 
 ---
 
-## 8. What is not measured
+## 8. Fine-tuning the retriever: a real trade, not a clean win
+
+`ragpdf/finetune_retriever.py` fine-tunes `all-mpnet-base-v2` with in-batch-negative
+contrastive loss (`MultipleNegativesRankingLoss`) on (section title, first matching
+chunk) pairs, using only 4 of every 5 Set A titles — `split_titles()` holds out the
+5th, and it and all of Set B stay unseen during training, so what follows is not the
+retriever grading its own training data.
+
+```bash
+python -m ragpdf.finetune_retriever --epochs 4 --out models/finetuned-retriever
+# CPU: ~12 min for 44 steps. Ran on a Colab T4 instead (20.99s, same 44 steps,
+# same code -- notebooks/_colab_finetune_script.py is what was actually executed).
+python -m eval.compare_finetuned
+```
+
+82 training pairs (83 titles; `"Appendices"` — the same known-bad query from §3 —
+has no matching chunk and is skipped), 4 epochs, batch size 8. Final train loss 0.0137.
+
+| | held-out Set A titles (in-domain) | Set B (out-of-domain, untouched by training) |
+|---|---|---|
+| base (off the shelf) | 0.952 (20/21) | **1.000** (34/34) |
+| fine-tuned | **1.000** (21/21) | 0.912 (31/34) |
+| Δ | **+0.048** | **−0.088** |
+
+**The fine-tune wins on the data shaped like what it trained on, and loses on the
+data that is not.** 82 pairs of "title → its own section text" pulls the embedding
+space toward matching titles to sections; three Set B questions that neither
+retriever answered before now fail on both, dense and BM25 alike, which suggests a
+labelling issue on those three (worth the same page-reading check §3's two
+corrections got) rather than a fine-tuning defect — but the other two are new
+misses attributable to the fine-tune itself:
+
+```bash
+python -m eval.compare_finetuned    # prints the exact 3 "missed by BOTH" queries
+```
+
+Read together with §3: **the base model was already winning Set B outright.**
+Fine-tuning on 82 title pairs bought a already-easy set (Set A dense was already
+0.952) a perfect score, at the cost of the harder, more realistic set it was never
+shown. This is the expected shape of a small-data fine-tune, not a hidden bug — and
+it is why this repo does not swap the fine-tuned model in as the default retriever
+in `ragpdf/retrieve.py`: `demo/app.py` exposes both, selectable, precisely so this
+trade-off stays visible instead of getting silently deployed as an upgrade.
+
+---
+
+## 9. What is not measured
 
 - **The generated answer's factual correctness.** Grounding measures whether the
   answer's words came from the retrieved pages, not whether the claim is true.

@@ -3,6 +3,12 @@ index/
 eval/results.json
 eval/generation_results.json
 
+# Fine-tuned retriever checkpoint (418 MB) -- regenerate with
+# `python -m ragpdf.finetune_retriever` (or notebooks/finetune_retriever_colab.ipynb
+# on GPU). index/embeddings_finetuned.npy is already covered by index/ above.
+models/
+eval/finetune_results.json
+
 # The source document: 26 MB, downloadable, and not mine to redistribute.
 # `python -m ragpdf.cli build` will not fetch it -- see README, step 1.
 human-nutrition-text.pdf
