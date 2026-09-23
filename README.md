@@ -177,15 +177,19 @@ ragpdf/chunk.py      PDF -> chunks.  STATES THE INVARIANT
 ragpdf/embed.py      chunks -> index/{chunks.json, embeddings.npy}
 ragpdf/retrieve.py   dense() and BM25 -- the model path and the boring path
 ragpdf/answer.py     abstain / extract / generate, with degradation rules
+ragpdf/finetune_retriever.py  fine-tunes the bi-encoder on Set A's train split
 ragpdf/cli.py        build · ask · eval · verify
+
+demo/app.py           Gradio front end -- wraps cli.py's functions, no logic of its own
 
 eval/build_titles.py Set A, generated from the PDF's table of contents
 eval/questions.json  Set B, authored (see the caveat in RESULTS.md)
 eval/out_of_corpus.json  Set C, 12 questions the book cannot answer
 eval/run_eval.py     every retrieval and abstention number
 eval/run_generation.py   the Phase 3.5 comparison
+eval/compare_finetuned.py  base vs fine-tuned retriever, on data neither trained on
 
-tests/test_ragpdf.py     14 tests, no network, no PDF, <1 s
+tests/test_ragpdf.py     18 tests, no network, no PDF, <1 s
 tests/original_impl.py   the original chunker, transcribed from the notebook
 tests/verify_tests.py    runs the tests against it -- 3/3 must fail
 ```

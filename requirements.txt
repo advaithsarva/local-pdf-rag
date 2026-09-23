@@ -14,3 +14,7 @@ numpy>=1.26
 
 # Dev only, not needed to run anything:
 #   spacy>=3.7      tests/original_impl.py, to prove the tests fail on the original
+#   datasets>=2.19, accelerate>=1.1  ragpdf/finetune_retriever.py -- sentence-
+#                   transformers' own SentenceTransformer.fit() is a thin
+#                   wrapper over transformers.Trainer as of v3+ and needs both
+#   gradio>=4.0     demo/app.py only -- not imported by ragpdf/ or eval/

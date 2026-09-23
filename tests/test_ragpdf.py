@@ -18,6 +18,7 @@ from ragpdf import answer as ans
 from ragpdf import chunk as ch
 from ragpdf import embed as emb
 from ragpdf import retrieve as ret
+from ragpdf import finetune_retriever as ft
 
 # A page with every join hazard the real textbook has: a question mark, a URL
 # after a full stop, a quote, a bracket and a digit.
@@ -198,6 +199,46 @@ def test_extractive_answer_is_fully_grounded(chunker=None):
     ctx = ans.format_context(chunks, [0])
     assert ans.grounding(out["answer"], ctx) == 1.0
     assert ans.grounding("Vitamin C is synthesised by the liver in dogs.", ctx) < 1.0
+
+
+# --- retriever fine-tuning: split/pairing logic, no model, no PDF --------------
+
+def test_split_titles_is_disjoint_and_covers_everything(chunker=None):
+    """The number reported in RESULTS.md rests on train and test never overlapping."""
+    titles = [{"query": f"t{i}", "gold_pages": [i]} for i in range(23)]
+    train, test = ft.split_titles(titles, held_out_every=5)
+    assert set(t["query"] for t in train).isdisjoint(t["query"] for t in test)
+    assert len(train) + len(test) == len(titles)
+    assert [t["query"] for t in test] == ["t0", "t5", "t10", "t15", "t20"]
+
+
+def test_split_titles_is_deterministic(chunker=None):
+    titles = [{"query": f"t{i}", "gold_pages": [i]} for i in range(30)]
+    a = ft.split_titles(titles)
+    b = ft.split_titles(titles)
+    assert a == b
+
+
+def test_build_pairs_skips_titles_with_no_matching_chunk(chunker=None):
+    chunks = [{"page": 10, "text": "digestion begins in the mouth"}]
+    titles = [
+        {"query": "Digestion", "gold_pages": [9, 11]},          # 10 is in range: matches
+        {"query": "Appendices", "gold_pages": [9000, 9001]},     # no chunk on those pages
+    ]
+    pairs = ft.build_pairs(titles, chunks)
+    assert pairs == [("Digestion", "digestion begins in the mouth")]
+
+
+def test_build_pairs_takes_the_first_matching_chunk_only(chunker=None):
+    """One positive per title -- a title matching three chunks does not get
+    three times the training weight of one that matches a single chunk."""
+    chunks = [
+        {"page": 5, "text": "first chunk on page five"},
+        {"page": 5, "text": "second chunk, also page five"},
+    ]
+    titles = [{"query": "Topic", "gold_pages": [5, 5]}]
+    pairs = ft.build_pairs(titles, chunks)
+    assert pairs == [("Topic", "first chunk on page five")]
 
 
 TESTS = [v for k, v in sorted(globals().items()) if k.startswith("test_")]
